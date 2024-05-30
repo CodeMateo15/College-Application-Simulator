@@ -4,29 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+
+// to update the text with correct month and store data on it
 public class Next_Month : MonoBehaviour
 {
-    public float monthCount;
-    public string monthType;
-    public float totalMonth;
-    public float yearCount;
-    private bool changeYear;
-    public float yearString;
-    public string standing;
+    public float monthCount; // month type, month 3 == March, tracks also when a year changes
+    public string monthType; // string to showcase month type, month 3 == March
+    public float totalMonth; // total month number (ex. 24 months)
+    public float yearCount; // year tracker
+    public float yearString; // string to showcase what year it is
+    public string standing; // what year the student is in (ex. freshman vs. sophmore)
 
-    void Update()
-    {
-        if (monthCount == 5 && changeYear == false)
-        {
-            yearCount += 1f;
-            changeYear = true;
-        }
-        if (monthCount == 6)
-        {
-            changeYear = false;
-        }
-    }
-
+    // method when the button gets clicked to change data about months and standing
     public void NextMonthClick()
     {
         monthCount += 1f;
@@ -35,13 +24,21 @@ public class Next_Month : MonoBehaviour
         {
             monthCount = 1f;
         }
+        if (monthCount == 5)
+        {
+            yearCount += 1f;
+        }
+        // activate string changes
         ChangeTimeString();
+        // change the actual texts with the new strings
         transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = monthType + " " + yearString + "\n" + "(" + totalMonth + " months in total)";
         transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = "Standing:\n" + standing;
     }
 
+    // deals with all the specific strings for Months and standing, could it be done better?
     void ChangeTimeString()
     {
+        // months 1-12 strings
         if (monthCount == 1)
         {
             monthType = "January";
@@ -90,6 +87,7 @@ public class Next_Month : MonoBehaviour
         {
             monthType = "December";
         }
+        // year strings
         if (totalMonth <= 5)
         {
             yearString = 2023;
@@ -110,6 +108,7 @@ public class Next_Month : MonoBehaviour
         {
             yearString = 2027;
         }
+        // standing strings
         if (yearCount == 1)
         {
             standing = "Freshman";
@@ -125,6 +124,10 @@ public class Next_Month : MonoBehaviour
         if (yearCount == 4)
         {
             standing = "Senior";
+        }
+        if (yearCount == 5)
+        {
+            standing = "Graduated";
         }
     }
 }
