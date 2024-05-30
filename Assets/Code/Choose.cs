@@ -5,14 +5,14 @@ using UnityEngine.UI;
 using TMPro;
 
 // the buttons for each of the four categories, it is a bit hard coded so it might be prone to bugs. Needs more testing
+// one known bug is if the button has a lower selected number, than a higher number is chosen, the other buttons will act like both got picked. Easy fix is to unselect and reselect
 public class Choose : MonoBehaviour
 {
+    public float ParentNumber; // the amount of time points left
+    public float ChildNumber; // the buttons assigned number
+    public float TextNumber; // sets the text to the selected time points
 
-    public float ParentNumber;
-    public float ChildNumber;
-    public float TextNumber;
-    public float valueParent;
-
+    // method I believe to reassign the slots if higher number was chosen
     public void RemoveExtra()
     {
         ParentNumber = GameObject.Find("Stats").GetComponent<Stats>().ChooseLeft;
@@ -47,6 +47,7 @@ public class Choose : MonoBehaviour
         }
     }
 
+    // method involving the selection and coloring based on what is picked
     public void ChildrenAssign()
     {
         if (transform.GetChild(4).gameObject.GetComponent<Chosen>().chosen == true)
@@ -84,6 +85,7 @@ public class Choose : MonoBehaviour
         }
     }
 
+    // method to show smaller slots but can't chose them
     public void AddExtra()
     {
         ParentNumber = GameObject.Find("Stats").GetComponent<Stats>().ChooseLeft;
@@ -118,6 +120,7 @@ public class Choose : MonoBehaviour
         }
     }
 
+    // method to unassign if bigger value is not picked
     public void ChildrenUnassign()
     {
         if (ChildNumber == 4 && transform.GetChild(4).gameObject.GetComponent<Chosen>().chosen == false && transform.GetChild(4).gameObject.GetComponent<Chosen>().unInteractable == false)
@@ -143,6 +146,7 @@ public class Choose : MonoBehaviour
         }
     }
 
+    // updates the text with the time points value, by fps I believe
     void Update()
     {
         transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = TextNumber.ToString();
