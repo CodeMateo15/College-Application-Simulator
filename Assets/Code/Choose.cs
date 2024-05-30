@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+// the buttons for each of the four categories, it is a bit hard coded so it might be prone to bugs. Needs more testing
 public class Choose : MonoBehaviour
 {
+
     public float ParentNumber;
     public float ChildNumber;
     public float TextNumber;
